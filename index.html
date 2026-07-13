@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ============================= SEO ============================= -->
+  <title>StartStep｜学びと暮らしを支えるアプリ・デジタルプロダクトの開発</title>
+  <meta name="description" content="StartStepは、日本で活動する個人事業です。モバイルアプリ・Webアプリ・AIを活用したデジタルプロダクトの企画・開発を行い、現在は高校生・受験生向けの学習管理アプリ「Studious Log」を開発しています。" />
+  <meta name="keywords" content="StartStep, Studious Log, 学習管理アプリ, モバイルアプリ開発, Webアプリ開発, AI, 個人事業" />
+  <meta name="author" content="StartStep" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://startstep-biz.com/" />
+
+  <!-- ============================= OGP ============================= -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="StartStep" />
+  <meta property="og:title" content="StartStep｜学びと暮らしを支えるアプリ・デジタルプロダクトの開発" />
+  <meta property="og:description" content="モバイルアプリ・Webアプリ・AIを活用したデジタルプロダクトの企画・開発。学習管理アプリ「Studious Log」を開発中。" />
+  <meta property="og:url" content="https://startstep-biz.com/" />
+  <meta property="og:locale" content="ja_JP" />
+  <meta property="og:image" content="https://startstep-biz.com/favicon.svg" />
+
+  <!-- ========================= Twitter Card ======================= -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="StartStep" />
+  <meta name="twitter:description" content="学びと暮らしを支えるアプリ・デジタルプロダクトの開発。" />
+  <meta name="twitter:image" content="https://startstep-biz.com/favicon.svg" />
+
+  <!-- ============================ Favicon ========================= -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="theme-color" content="#EAF4FB" />
+
+  <!-- ===================== Tailwind (CDN) ========================= -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // デザイントークン ― 白とペールブルー、和文フォント、ごく軽い影。
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            base: "#F7FBFE", // 青みをふくんだ、淡い白
+            mist: "#DCEEFB", // ペールブルー
+            sky:  "#9ED8F5", // アクセント ― 澄んだ水色
+            ink:  "#48555E", // 本文 ― 青みのある、やわらかなチャコールグレー
+          },
+          fontFamily: {
+            // 和文優先の洗練サンセリフ。外部フォントを読み込まず軽快に。
+            sans: [
+              '-apple-system', 'BlinkMacSystemFont',
+              '"Hiragino Kaku Gothic ProN"', '"Hiragino Sans"',
+              '"Yu Gothic Medium"', '"YuGothic"', '"Noto Sans JP"',
+              '"Segoe UI"', 'Roboto', 'sans-serif',
+            ],
+          },
+          boxShadow: {
+            // ごく軽い影。ガラス感をそっと支える程度に。
+            glass: '0 12px 34px -24px rgba(90,120,150,0.22)',
+          },
+        },
+      },
+    };
+  </script>
+
+  <!-- ========================= ベース =========================== -->
+  <style>
+    /* 白とペールブルーの静かなグラデーション。
+       下へ向かってごくわずかに深い青にし、水の奥行きをそっと添える（動きなし）。 */
+    body {
+      background:
+        radial-gradient(1100px 640px at 50% -10%, rgba(255,255,255,0.65), transparent 60%),
+        linear-gradient(180deg, #F7FBFE 0%, #EAF4FB 45%, #E3F0FA 76%, #DBEAF6 100%);
+      background-attachment: fixed;
+    }
+    /* かすかな星のテクスチャ。近づくと感じる程度に、ごく淡く。 */
+    .stars {
+      position: absolute; inset: 0;
+      background-repeat: no-repeat;
+      background-image:
+        radial-gradient(1.5px 1.5px at 8% 15%,  rgba(110,140,175,0.38), transparent),
+        radial-gradient(1.5px 1.5px at 22% 55%, rgba(110,140,175,0.28), transparent),
+        radial-gradient(1px 1px   at 35% 24%,  rgba(110,140,175,0.34), transparent),
+        radial-gradient(1.5px 1.5px at 47% 70%, rgba(110,140,175,0.26), transparent),
+        radial-gradient(1px 1px   at 60% 18%,  rgba(110,140,175,0.34), transparent),
+        radial-gradient(1.5px 1.5px at 72% 46%, rgba(110,140,175,0.28), transparent),
+        radial-gradient(1px 1px   at 85% 30%,  rgba(110,140,175,0.34), transparent),
+        radial-gradient(1.5px 1.5px at 92% 64%, rgba(110,140,175,0.26), transparent),
+        radial-gradient(1px 1px   at 15% 82%,  rgba(110,140,175,0.28), transparent),
+        radial-gradient(1.5px 1.5px at 40% 90%, rgba(110,140,175,0.24), transparent),
+        radial-gradient(1px 1px   at 68% 85%,  rgba(110,140,175,0.28), transparent),
+        radial-gradient(1.5px 1.5px at 80% 77%, rgba(110,140,175,0.24), transparent);
+      opacity: 0.55;
+    }
+    html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  </style>
+</head>
+
+<body class="font-sans font-light text-ink antialiased selection:bg-sky/30">
+
+  <!-- 背景の空気感：白い雲・水の深み・かすかな星（画像不使用・純CSS・静止）。 -->
+  <div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden" aria-hidden="true">
+    <div class="stars"></div>
+    <div class="absolute -top-16 left-[8%]  h-40 w-[26rem] rounded-full bg-white/40 blur-3xl"></div>
+    <div class="absolute top-28 right-[6%]  h-36 w-[22rem] rounded-full bg-white/35 blur-3xl"></div>
+    <div class="absolute bottom-[-6rem] left-1/4 h-[26rem] w-[40rem] rounded-full bg-sky/10 blur-3xl"></div>
+  </div>
+
+  <!-- ============================= ナビ =========================== -->
+  <header class="sticky top-0 z-50 border-b border-white/40 bg-white/30 backdrop-blur-md">
+    <nav class="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
+      <a href="#hero" class="flex items-center gap-2 text-lg font-medium tracking-tight">
+        <!-- StartStep の頭文字 S マーク -->
+        <svg width="26" height="26" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+          <rect width="64" height="64" rx="16" fill="#9ED8F5" fill-opacity="0.30"/>
+          <path d="M42 22c-2.5-3-6.5-4.5-11-4.5-6.5 0-11 3.2-11 8 0 11 22 6 22 16 0 5-4.8 8.5-12 8.5-5 0-9-1.8-11.5-5"
+                stroke="#48555E" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+        </svg>
+        StartStep
+      </a>
+      <ul class="hidden items-center gap-9 text-sm text-ink/55 md:flex">
+        <li><a href="#why" class="transition-colors duration-300 hover:text-ink">なぜStartStep</a></li>
+        <li><a href="#about" class="transition-colors duration-300 hover:text-ink">私たちについて</a></li>
+        <li><a href="#products" class="transition-colors duration-300 hover:text-ink">プロダクト</a></li>
+        <li><a href="#services" class="transition-colors duration-300 hover:text-ink">サービス</a></li>
+        <li><a href="#business" class="transition-colors duration-300 hover:text-ink">事業概要</a></li>
+        <li><a href="#contact" class="transition-colors duration-300 hover:text-ink">お問い合わせ</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="mx-auto max-w-6xl px-6">
+
+    <!-- ============================ ヒーロー ======================== -->
+    <section id="hero" class="flex min-h-[86vh] flex-col items-center justify-center py-28 text-center">
+      <p class="mb-7 text-xs font-medium uppercase tracking-[0.28em] text-sky">Learning Applications &amp; Digital Products</p>
+      <h1 class="max-w-4xl text-4xl font-extralight leading-[1.55] tracking-[0.04em] md:text-6xl md:leading-[1.45]">
+        学びと暮らしに、<br class="hidden sm:block" />静かな一歩を。
+      </h1>
+      <p class="mt-9 max-w-2xl text-base font-light leading-[2.1] text-ink/65 md:text-lg">
+        StartStepは、学びと暮らしを支えるモバイルアプリ・Webアプリ・AIを活用したデジタルプロダクトを、
+        企画から開発まで手がける個人事業です。
+      </p>
+      <div class="mt-14 flex flex-col gap-4 sm:flex-row">
+        <a href="#products"
+           class="rounded-full border border-white/60 bg-white/45 px-10 py-3.5 text-sm font-normal shadow-glass backdrop-blur-md transition-colors duration-300 hover:bg-white/70">
+          Studious&nbsp;Log
+        </a>
+        <a href="#business"
+           class="rounded-full border border-sky/40 bg-sky/15 px-10 py-3.5 text-sm font-normal shadow-glass backdrop-blur-md transition-colors duration-300 hover:bg-sky/25">
+          事業概要
+        </a>
+      </div>
+    </section>
+
+    <!-- ====================== なぜStartStepなのか =================== -->
+    <section id="why" class="scroll-mt-24 py-28 md:py-40">
+      <div class="mx-auto max-w-3xl">
+        <p class="text-center text-xs font-medium uppercase tracking-[0.3em] text-sky">Why StartStep</p>
+        <h2 class="mt-5 text-center text-3xl font-extralight tracking-[0.02em] md:text-5xl md:leading-[1.3]">なぜStartStepなのか</h2>
+        <div class="mt-12 space-y-8 text-base font-light leading-[2.2] text-ink/70">
+          <p>
+            これからの時代、人とAIはともに考え、ともに創り出していきます。StartStepは、その協働が
+            自然で心地よいものになるための、静かな土台を築いていきたいと考えています。
+          </p>
+          <p>
+            いまはその第一歩として、学習記録アプリ「Studious&nbsp;Log」の開発に取り組んでいます。
+            学びと暮らしに寄り添うプロダクトを重ねながら、人とAIが自然に協働できる未来へ、
+            一歩ずつ進んでいきます。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================= 私たちについて ==================== -->
+    <section id="about" class="scroll-mt-24 py-28 md:py-40">
+      <div class="mx-auto max-w-3xl text-center">
+        <p class="text-xs font-medium uppercase tracking-[0.3em] text-sky">About</p>
+        <h2 class="mt-5 text-3xl font-extralight tracking-[0.02em] md:text-5xl md:leading-[1.3]">私たちについて</h2>
+        <p class="mt-9 text-base font-light leading-[2.2] text-ink/70">
+          StartStepは、日本で活動する個人事業です。モバイルアプリケーション、Webアプリケーション、
+          そしてAIを活用したデジタルプロダクトの企画・開発を行っています。
+          現在は学習記録アプリ「Studious&nbsp;Log」を中心に開発を進めており、
+          今後も学びや暮らしを支えるプロダクトを継続的に届けていきます。
+        </p>
+      </div>
+
+      <div class="mt-16 grid gap-6 md:grid-cols-3">
+        <!-- ミッション（短縮） -->
+        <div class="rounded-[1.75rem] border border-white/50 bg-white/40 p-9 shadow-glass backdrop-blur-md transition-colors duration-300 hover:bg-white/55">
+          <h3 class="text-lg font-medium text-sky">ミッション</h3>
+          <p class="mt-4 text-sm font-light leading-[2] text-ink/70">
+            人とAIが自然に協働できる未来を、学びと暮らしのそばから支えていくこと。
+          </p>
+        </div>
+        <!-- ビジョン -->
+        <div class="rounded-[1.75rem] border border-white/50 bg-white/40 p-9 shadow-glass backdrop-blur-md transition-colors duration-300 hover:bg-white/55">
+          <h3 class="text-lg font-medium text-sky">ビジョン</h3>
+          <p class="mt-4 text-sm font-light leading-[2] text-ink/70">
+            日々の道具が静かで透明であり、
+            始めようとするすべての人に前進が開かれている世界。
+          </p>
+        </div>
+        <!-- 価値観 -->
+        <div class="rounded-[1.75rem] border border-white/50 bg-white/40 p-9 shadow-glass backdrop-blur-md transition-colors duration-300 hover:bg-white/55">
+          <h3 class="text-lg font-medium text-sky">価値観</h3>
+          <p class="mt-4 text-sm font-light leading-[2] text-ink/70">
+            騒がしさよりも、明快さを。
+            速さよりも、丁寧さを。そして、使う人への敬意を。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================== プロダクト ======================= -->
+    <section id="products" class="scroll-mt-24 py-28 md:py-40">
+      <div class="mx-auto max-w-3xl text-center">
+        <p class="text-xs font-medium uppercase tracking-[0.3em] text-sky">Products</p>
+        <h2 class="mt-5 text-3xl font-extralight tracking-[0.02em] md:text-5xl md:leading-[1.3]">プロダクト</h2>
+      </div>
+
+      <!-- Studious Log -->
+      <div class="mx-auto mt-14 max-w-2xl">
+        <article class="rounded-[1.75rem] border border-white/50 bg-white/40 p-10 shadow-glass backdrop-blur-md md:p-12">
+          <div class="flex items-center gap-3">
+            <h3 class="text-2xl font-normal tracking-tight">Studious&nbsp;Log</h3>
+            <span class="text-xs font-light text-sky/90">開発中</span>
+          </div>
+          <p class="mt-6 text-base font-light leading-[2.1] text-ink/70">
+            高校生・受験生に向けた、学習管理アプリです。日々の学習を記録・管理し、
+            受験までの学びの積み重ねを、無理なく続けられるように支えます。
+          </p>
+          <div class="mt-8">
+            <p class="text-xs font-medium uppercase tracking-[0.2em] text-ink/45">できること</p>
+            <ul class="mt-3 space-y-2 text-sm font-light leading-[1.9] text-ink/70">
+              <li>・学習した内容と時間を記録する</li>
+              <li>・進み具合を振り返って確かめる</li>
+              <li>・自分のペースで学習を続ける</li>
+            </ul>
+          </div>
+          <p class="mt-8 text-sm font-light text-ink/45">
+            データは端末内にのみ保存され、広告や課金はありません（バージョン&nbsp;1）。
+          </p>
+        </article>
+      </div>
+
+      <!-- 今後のプロダクト（Coming Soon） -->
+      <div class="mx-auto mt-6 max-w-2xl">
+        <p class="mb-4 text-center text-xs font-medium uppercase tracking-[0.2em] text-ink/45">今後のプロダクト</p>
+        <div class="grid gap-6 sm:grid-cols-2">
+          <div class="rounded-[1.75rem] border border-white/50 bg-white/35 p-8 shadow-glass backdrop-blur-md">
+            <div class="flex items-center gap-3">
+              <h4 class="text-lg font-normal tracking-tight">QuestLog</h4>
+              <span class="text-xs font-light text-sky/90">Coming&nbsp;Soon</span>
+            </div>
+            <p class="mt-3 text-sm font-light leading-[1.9] text-ink/60">
+              学びを、もっと楽しく続けるための新しいアプリを構想しています。
+            </p>
+          </div>
+          <div class="rounded-[1.75rem] border border-white/50 bg-white/35 p-8 shadow-glass backdrop-blur-md">
+            <div class="flex items-center gap-3">
+              <h4 class="text-lg font-normal tracking-tight">Studious&nbsp;Life</h4>
+              <span class="text-xs font-light text-sky/90">Coming&nbsp;Soon</span>
+            </div>
+            <p class="mt-3 text-sm font-light leading-[1.9] text-ink/60">
+              学びと暮らしをつなぐ、新しいプロダクトを準備しています。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================== サービス ======================== -->
+    <section id="services" class="scroll-mt-24 py-28 md:py-40">
+      <div class="mx-auto max-w-3xl text-center">
+        <p class="text-xs font-medium uppercase tracking-[0.3em] text-sky">Services</p>
+        <h2 class="mt-5 text-3xl font-extralight tracking-[0.02em] md:text-5xl md:leading-[1.3]">サービス</h2>
+        <p class="mt-8 text-sm font-light leading-[2] text-ink/60">
+          個人事業として、企画から開発まで一貫して手がけています。
+        </p>
+      </div>
+
+      <div class="mt-16 grid gap-6 md:grid-cols-3">
+        <!-- モバイルアプリ開発 -->
+        <div class="rounded-[1.75rem] border border-white/50 bg-white/40 p-9 shadow-glass backdrop-blur-md transition-colors duration-300 hover:bg-white/55">
+          <svg class="h-7 w-7 text-sky" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+            <rect x="7" y="2" width="10" height="20" rx="2.5"/><line x1="11" y1="18" x2="13" y2="18"/>
+          </svg>
+          <h3 class="mt-6 text-lg font-medium">モバイルアプリ開発</h3>
+          <p class="mt-1 text-xs font-light tracking-wide text-ink/45">Mobile Application Development</p>
+          <p class="mt-3 text-sm font-light leading-[2] text-ink/70">
+            iOS・Android向けのアプリを、企画から実装まで一貫して開発します。
+          </p>
+        </div>
+        <!-- Webアプリケーション開発 -->
+        <div class="rounded-[1.75rem] border border-white/50 bg-white/40 p-9 shadow-glass backdrop-blur-md transition-colors duration-300 hover:bg-white/55">
+          <svg class="h-7 w-7 text-sky" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+            <rect x="3" y="5" width="18" height="14" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/>
+          </svg>
+          <h3 class="mt-6 text-lg font-medium">Webアプリケーション開発</h3>
+          <p class="mt-1 text-xs font-light tracking-wide text-ink/45">Web Application Development</p>
+          <p class="mt-3 text-sm font-light leading-[2] text-ink/70">
+            必要な機能に絞った、使いやすいWebアプリケーションを開発します。
+          </p>
+        </div>
+        <!-- AIを活用したソフトウェア開発 -->
+        <div class="rounded-[1.75rem] border border-white/50 bg-white/40 p-9 shadow-glass backdrop-blur-md transition-colors duration-300 hover:bg-white/55">
+          <svg class="h-7 w-7 text-sky" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+            <path d="M12 3l1.9 5.6L19.5 10.5 13.9 12.4 12 18 10.1 12.4 4.5 10.5 10.1 8.6z"/>
+          </svg>
+          <h3 class="mt-6 text-lg font-medium">AIを活用したソフトウェア開発</h3>
+          <p class="mt-1 text-xs font-light tracking-wide text-ink/45">AI-powered Software Development</p>
+          <p class="mt-3 text-sm font-light leading-[2] text-ink/70">
+            AIを取り入れたソフトウェアやデジタルプロダクトを開発します。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================== 事業概要 ======================== -->
+    <section id="business" class="scroll-mt-24 py-28 md:py-40">
+      <div class="mx-auto max-w-3xl text-center">
+        <p class="text-xs font-medium uppercase tracking-[0.3em] text-sky">Business</p>
+        <h2 class="mt-5 text-3xl font-extralight tracking-[0.02em] md:text-5xl md:leading-[1.3]">事業概要</h2>
+      </div>
+
+      <div class="mx-auto mt-14 max-w-2xl overflow-hidden rounded-[1.75rem] border border-white/50 bg-white/40 shadow-glass backdrop-blur-md">
+        <table class="w-full text-left text-sm">
+          <tbody class="divide-y divide-white/50">
+            <tr>
+              <th scope="row" class="w-1/3 px-7 py-5 font-medium text-ink/55">屋号</th>
+              <td class="px-7 py-5 font-light">StartStep</td>
+            </tr>
+            <tr>
+              <th scope="row" class="px-7 py-5 font-medium text-ink/55">事業形態</th>
+              <td class="px-7 py-5 font-light">個人事業主</td>
+            </tr>
+            <tr>
+              <th scope="row" class="px-7 py-5 font-medium text-ink/55">代表者</th>
+              <td class="px-7 py-5 font-light text-ink/40">【 代表者名を記入 】</td>
+            </tr>
+            <tr>
+              <th scope="row" class="px-7 py-5 font-medium text-ink/55">所在地</th>
+              <td class="px-7 py-5 font-light text-ink/40">【 所在地を記入 】</td>
+            </tr>
+            <tr>
+              <th scope="row" class="px-7 py-5 font-medium text-ink/55">メールアドレス</th>
+              <td class="px-7 py-5 font-light">
+                <a href="mailto:info@startstep-biz.com" class="text-sky underline-offset-4 transition-colors hover:underline">info@startstep-biz.com</a>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row" class="px-7 py-5 font-medium text-ink/55">Webサイト</th>
+              <td class="px-7 py-5 font-light">
+                <a href="https://startstep-biz.com" class="text-sky underline-offset-4 transition-colors hover:underline">https://startstep-biz.com</a>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row" class="px-7 py-5 font-medium text-ink/55">事業内容</th>
+              <td class="px-7 py-5 font-light">モバイルアプリ・Webアプリ・AIを活用したデジタルプロダクトの企画・開発</td>
+            </tr>
+            <tr>
+              <th scope="row" class="px-7 py-5 font-medium text-ink/55">開業</th>
+              <td class="px-7 py-5 font-light text-ink/40">【 開業年月を記入 】</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ---------------------- 現在の事業 (静かなリスト) ---------------------- -->
+      <div class="mx-auto mt-8 max-w-2xl overflow-hidden rounded-[1.75rem] border border-white/50 bg-white/40 p-9 shadow-glass backdrop-blur-md md:p-11">
+        <h3 class="text-lg font-medium tracking-tight">現在の事業</h3>
+        <ul class="mt-6 divide-y divide-white/50 text-sm font-light text-ink/75">
+          <li class="flex items-baseline gap-3 py-3.5">
+            <span class="mt-1 h-1.5 w-1.5 flex-none rounded-full bg-sky/70"></span>
+            <span>学習管理アプリ「Studious&nbsp;Log」の開発</span>
+          </li>
+          <li class="flex items-baseline gap-3 py-3.5">
+            <span class="mt-1 h-1.5 w-1.5 flex-none rounded-full bg-sky/70"></span>
+            <span>ソフトウェアの企画・開発</span>
+          </li>
+          <li class="flex items-baseline gap-3 py-3.5">
+            <span class="mt-1 h-1.5 w-1.5 flex-none rounded-full bg-sky/70"></span>
+            <span>AIを活用したプロダクトの研究</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ========================= お問い合わせ ====================== -->
+    <section id="contact" class="scroll-mt-24 py-28 md:py-40">
+      <div class="mx-auto max-w-xl rounded-[1.75rem] border border-white/50 bg-white/40 p-12 text-center shadow-glass backdrop-blur-md md:p-14">
+        <p class="text-xs font-medium uppercase tracking-[0.3em] text-sky">Contact</p>
+        <h2 class="mt-5 text-3xl font-extralight tracking-[0.02em] md:text-4xl">お問い合わせ</h2>
+        <p class="mt-7 text-base font-light leading-[2.1] text-ink/70">
+          ご相談、ご依頼、取材などのご連絡は、いつでもお気軽にどうぞ。
+        </p>
+        <a href="mailto:info@startstep-biz.com"
+           class="mt-10 inline-block rounded-full border border-sky/40 bg-sky/15 px-10 py-3.5 text-sm font-normal shadow-glass backdrop-blur-md transition-colors duration-300 hover:bg-sky/25">
+          info@startstep-biz.com
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============================ フッター ======================== -->
+  <footer class="mt-16 border-t border-white/40">
+    <div class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 py-14 text-sm text-ink/55 sm:flex-row">
+      <p class="font-medium text-ink/75">StartStep</p>
+      <nav class="flex items-center gap-8">
+        <a href="/privacy.html" class="transition-colors duration-300 hover:text-ink">プライバシーポリシー</a>
+        <a href="/terms.html" class="transition-colors duration-300 hover:text-ink">利用規約</a>
+      </nav>
+      <p>&copy; <span id="year">2026</span> StartStep</p>
+    </div>
+  </footer>
+
+  <!-- ==================== 最小限の JavaScript ==================== -->
+  <script>
+    // 著作権表示の年を最新に保つ。
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
