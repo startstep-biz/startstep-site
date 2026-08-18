@@ -344,22 +344,6 @@ section {
   flex-wrap: wrap;
 }
 
-.hero-store {
-  margin-top: 20px;
-}
-
-.hero-store-badge {
-  display: inline-block;
-  line-height: 0;
-}
-
-.hero-store-badge img {
-  display: block;
-  height: 46px;
-  width: auto;
-  border-radius: 5px;
-}
-
 /* 写真セクション：全幅・大きめの高さで1枚写真を主役にする */
 .hero-photo {
   position: relative;
@@ -525,6 +509,22 @@ section {
   font-size: 0.85rem;
   color: var(--color-text-faint);
   margin-top: 14px;
+}
+
+.product-store {
+  margin-top: 16px;
+}
+
+.product-store-badge {
+  display: inline-block;
+  line-height: 0;
+}
+
+.product-store-badge img {
+  display: block;
+  height: 46px;
+  width: auto;
+  border-radius: 5px;
 }
 
 .upcoming-grid {
