@@ -344,6 +344,22 @@ section {
   flex-wrap: wrap;
 }
 
+.hero-store {
+  margin-top: 20px;
+}
+
+.hero-store-badge {
+  display: inline-block;
+  line-height: 0;
+}
+
+.hero-store-badge img {
+  display: block;
+  height: 46px;
+  width: auto;
+  border-radius: 5px;
+}
+
 /* 写真セクション：全幅・大きめの高さで1枚写真を主役にする */
 .hero-photo {
   position: relative;
@@ -813,6 +829,14 @@ section {
 .legal-card .legal-contact-link {
   color: var(--color-primary-dark);
   border-bottom: 1px solid rgba(111, 163, 201, 0.4);
+}
+
+.legal-updated {
+  margin-top: 44px;
+  padding-top: 24px;
+  border-top: 1px solid var(--color-border-soft);
+  color: var(--color-text-faint);
+  font-size: 0.82rem;
 }
 
 /* ---------------------------------------------------------------------- */
