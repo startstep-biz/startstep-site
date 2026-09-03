@@ -1,11 +1,11 @@
 {
   "android": {
-    "latestVersion": "1.1.0",
+    "latestVersion": "2.0",
     "storeUrl": "https://play.google.com/store/apps/details?id=biz.startstep.studiouslog"
   },
   "ios": {
     "latestVersion": "1.0.0",
-    "storeUrl": "https://apps.apple.com/app/id未定"
+    "storeUrl": "https://apps.apple.com/jp/app/studious-log/id6805851959"
   },
-  "message": "使いやすさの改善が含まれています。"
+  "message": "デザインを一新し、使いやすさも改善しました。"
 }
